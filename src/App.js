@@ -5,7 +5,7 @@ import Axios from "axios";
 const CardList = props => (
   <div>
     {props.profiles.map(profile => (
-      <Card {...profile} />
+      <Card key={profile.id} {...profile} />
     ))}
   </div>
 );
@@ -18,6 +18,7 @@ class Form extends React.Component {
       `https://api.github.com/users/${this.state.userName}`
     );
     this.props.onSubmit(resp.data);
+    this.setState({userName: ''})
   };
   render() {
     return (

@@ -13,6 +13,6 @@ Issues with code
 4. probably can update these classes to functions 
 
 Planned updates
-1. swap out axios for a agent
+~~1. swap out axios for a agent(swapped for function fetch call)~~ 
 2. add error handling
 3. autocomplete 

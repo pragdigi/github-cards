@@ -12,13 +12,21 @@ const CardList = props => (
 
 class Form extends React.Component {
   state = { userName: "" };
+
   handleSubmit = async event => {
     event.preventDefault();
-    const resp = await Axios.get(
+    /*     const resp = await Axios.get(
       `https://api.github.com/users/${this.state.userName}`
-    );
-    this.props.onSubmit(resp.data);
-    this.setState({userName: ''})
+    ); */
+    const resp = await fetch(
+      `https://api.github.com/users/${this.state.userName}`
+    )
+      .then(function(response) {
+      return response.json();
+      });
+      
+    this.props.onSubmit(resp);
+    this.setState({ userName: "" });
   };
   render() {
     return (
@@ -53,12 +61,12 @@ class Card extends React.Component {
 
 class App extends React.Component {
   state = {
-    profiles: [],
+    profiles: []
   };
   addNewProfile = profileData => {
     console.log("App", profileData);
     this.setState(prevState => ({
-      profiles: [...prevState.profiles, profileData],
+      profiles: [...prevState.profiles, profileData]
     }));
   };
 
@@ -66,7 +74,7 @@ class App extends React.Component {
     return (
       <div>
         <div className="header">{this.props.title}</div>
-        <Form onSubmit={this.addNewProfile}/>
+        <Form onSubmit={this.addNewProfile} />
         <CardList profiles={this.state.profiles} />
       </div>
     );

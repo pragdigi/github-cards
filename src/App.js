@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.css";
-import Axios from "axios";
 
 const CardList = props => (
   <div>
@@ -15,18 +14,19 @@ class Form extends React.Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-    /*     const resp = await Axios.get(
-      `https://api.github.com/users/${this.state.userName}`
-    ); */
     const resp = await fetch(
       `https://api.github.com/users/${this.state.userName}`
-    )
-      .then(function(response) {
+    ).then(function(response) {
+      if (!response.ok) {
+        alert('Invalid User, Try another!');
+        throw response;
+      }
       return response.json();
-      });
-      
-    this.props.onSubmit(resp);
-    this.setState({ userName: "" });
+    });
+
+      this.props.onSubmit(resp);
+      this.setState({ userName: "" });
+
   };
   render() {
     return (
@@ -34,7 +34,11 @@ class Form extends React.Component {
         <input
           type="text"
           value={this.state.userName}
-          onChange={event => this.setState({ userName: event.target.value })}
+          onChange={event =>
+            this.setState({
+              userName: event.target.value
+            })
+          }
           placeholder="GitHub username"
           required
         />

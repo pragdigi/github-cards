@@ -14,5 +14,6 @@ Issues with code
 
 Planned updates
 1. ~~swap out axios for a agent(swapped for function fetch call)~~ 
-2. add error handling
+2. ~~add error handling~~ 
 3. autocomplete 
+4. styling 
